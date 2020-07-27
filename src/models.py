@@ -4,7 +4,7 @@ The database models used for storing Users and Posts
 from sqlalchemy import Column, String, Integer
 from flask_sqlalchemy import SQLAlchemy
 
-DATABASE_NAME = ""
+DATABASE_NAME = "buddy_db"
 database_path = "postgres://{}/{}".format('localhost:5432', DATABASE_NAME)
 
 db = SQLAlchemy()
@@ -16,7 +16,7 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
-    db.create_all()
+    return db
 
 
 class User(db.Model):
@@ -26,7 +26,7 @@ class User(db.Model):
     username = Column(String(16), unique=True, nullable=False)
     post_count = Column(Integer)
     friend_count = Column(Integer)
-    posts = db.elationship('Post', backref="user", lazy=True)
+    posts = db.relationship('Post', backref="user", lazy=True)
 
     def __repr__(self):
         return "<{0}>: {1}".format(self.user_id, self.username)
