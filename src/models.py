@@ -24,8 +24,8 @@ class User(db.Model):
     __tablename__ = "User"
     user_id = Column(Integer, primary_key=True)
     username = Column(String(16), unique=True, nullable=False)
-    post_count = Column(Integer)
-    friend_count = Column(Integer)
+    post_count = Column(Integer, default=0)
+    friend_count = Column(Integer, default=0)
     posts = db.relationship('Post', backref="user", lazy=True)
 
     def __repr__(self):

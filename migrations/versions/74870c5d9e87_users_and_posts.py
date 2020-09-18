@@ -21,8 +21,8 @@ def upgrade():
     op.create_table('User',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=16), nullable=False),
-    sa.Column('post_count', sa.Integer(), nullable=True),
-    sa.Column('friend_count', sa.Integer(), nullable=True),
+    sa.Column('post_count', sa.Integer(), nullable=True, default=0),
+    sa.Column('friend_count', sa.Integer(), nullable=True, default=0),
     sa.PrimaryKeyConstraint('user_id'),
     sa.UniqueConstraint('username')
     )
